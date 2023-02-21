@@ -1,0 +1,23 @@
+---
+version: "2.1"
+services:
+  webtop:
+    image: lscr.io/linuxserver/webtop:ubuntu-kde
+    container_name: webtop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUBFOLDER=/ #optional
+      - KEYBOARD=en-us-qwerty #optional
+      - TITLE=Webtop #optional
+    volumes:
+      - /workspace/playground/webtop/config:/config
+      - /var/run/docker.sock:/var/run/docker.sock #optional
+    ports:
+      - 3000:3000
+    devices:
+      # IMPORTANT: We need this device for fuse.
+      - /dev/fuse:/dev/fuse #optional
+    shm_size: "999tb" #optional
+    restart: unless-stopped
